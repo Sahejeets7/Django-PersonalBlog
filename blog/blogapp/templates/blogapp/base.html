@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>MY-BLOG</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+
+  </head>
+  <body>
+      <div class="page-header">
+        {% if user.is_authenticated %}
+          <a href="{% url 'new_post' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+          <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+          <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+        {% else %}
+          <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+        {% endif %}
+        <!-- <svg-icon><src href="sprite.svg#si-glyph-edit" /></svg-icon> -->
+        <!-- <svg-icon><src href="sprite.svg#si-glyph-plus" /></svg-icon> -->
+        <!-- <i class="glyphicon glyphicon-plus"></i> -->
+        <!-- <i class="glyphicon glyphicon-edit"></i> -->
+        <h1><a href="/" id='top'>Django Blog</a></h1>
+      </div>
+      <br>
+      <div class="content container">
+        <div class="row">
+          <div class="col-md-8">
+            {% block newblock %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    <!-- <div class="">
+      <p>published: 14.06.2014, 12:14</p>
+      <h2><a href="">My First Post</a></h2>
+      <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+    </div>
+
+    <div class="">
+      <p>published: 14.06.2014, 12:14</p>
+      <h2><a href="">My Second Post</a></h2>
+      <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
+    </div> -->
+  </body>
+</html>

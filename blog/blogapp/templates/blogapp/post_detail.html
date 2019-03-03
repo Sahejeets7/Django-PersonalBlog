@@ -1,0 +1,25 @@
+{% extends 'blogapp/base.html' %}
+
+{% block newblock %}
+    <div class="post">
+      {% if post.date_published %}
+        <div class="date">
+          <p>{{ post.date_published }}</p>
+        </div>
+      {% else %}
+        <a href="{% url 'post_publish' pk=post.pk %}" class="btn btn-default">Publish</a>
+      {% endif %}
+    <div class="text-right">
+      {% if user.is_authenticated %}
+        <a class="btn btn-default" href="{% url 'edit_post' pk=post.pk %}" ><span class="glyphicon glyphicon-pencil"></span></a>
+        <a href="{% url 'delete_post' pk=post.pk %}" class='btn btn-default'><span class='glyphicon glyphicon-remove'></span></a>
+      {% endif %}
+    </div>
+      <!-- <a href="#">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a> -->
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.text|safe|linebreaks }}</p>
+
+    </div>
+{% endblock %}
