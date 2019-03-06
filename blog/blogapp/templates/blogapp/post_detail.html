@@ -7,6 +7,7 @@
           <p>{{ post.date_published }}</p>
         </div>
       {% else %}
+        <p class='date'>created: {{ post.date_created|date:'d-m-Y' }}</p>
         <a href="{% url 'post_publish' pk=post.pk %}" class="btn btn-default">Publish</a>
       {% endif %}
     <div class="text-right">
@@ -15,11 +16,27 @@
         <a href="{% url 'delete_post' pk=post.pk %}" class='btn btn-default'><span class='glyphicon glyphicon-remove'></span></a>
       {% endif %}
     </div>
-      <!-- <a href="#">
-        <span class="glyphicon glyphicon-plus"></span>
-      </a> -->
+
       <h2>{{ post.title }}</h2>
       <p>{{ post.text|safe|linebreaks }}</p>
 
+      <hr>
+      <a href="{% url 'add_comment_to_post' pk=post.pk %}" class='btn btn-default'>Add comment</a>
+      {% for comment in post.comments.all %}
+       {% if user.is_authenticated or comment.approved_comment %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+            {% endif %}
+            </div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.comment_text|safe|linebreaks }}</p>
+            </div>
+        {% endif %}
+      {% empty %}
+          <p>No comments here yet :(</p>
+      {% endfor %}
     </div>
 {% endblock %}
